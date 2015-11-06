@@ -26,6 +26,7 @@
 #include <ns3/node.h>
 #include <ns3/object-base.h>
 #include <ns3/pointer.h>
+#include <ns3/simulator.h>
 
 namespace ns3 {
 
@@ -33,14 +34,23 @@ NS_LOG_COMPONENT_DEFINE ("CapillaryController");
 
 NS_OBJECT_ENSURE_REGISTERED (CapillaryController);
 
-CapillaryController::CapillaryController ()
+CapillaryController::CapillaryController (void)
+{
+  NS_LOG_FUNCTION (this);
+  m_activePeriodStart=Time(0);
+}
+
+CapillaryController::~CapillaryController (void)
 {
   NS_LOG_FUNCTION (this);
 }
 
-CapillaryController::~CapillaryController ()
+void CapillaryController::NotifyActivePeriodStart(void)
 {
-  NS_LOG_FUNCTION (this);
+	NS_LOG_FUNCTION (this);
+	m_activePeriodStart=Simulator::Now();
+
+NS_LOG_DEBUG ("Active Period Started at:"<<m_activePeriodStart);
 }
 
 TypeId
