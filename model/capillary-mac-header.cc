@@ -29,7 +29,8 @@ CapillaryMacHeader::CapillaryMacHeader (void)
 {
   SetSeqNum (0);
   SetFrameControl (0);
-  SetPayloadSize (0);
+  //SetPayloadSize (0);
+  SetEnergyValue (0);
   SetSrcAddr (Mac64Address ());
   SetDstAddr (Mac64Address ());
 }
@@ -38,8 +39,9 @@ CapillaryMacHeader::CapillaryMacHeader (FrameType frameType)
 {
   SetSeqNum (0);
   SetFrameControl (0);
-  SetPayloadSize (0);
+  //SetPayloadSize (0);
   SetFrameType (frameType);
+  SetEnergyValue (0);
   SetSrcAddr (Mac64Address ());
   SetDstAddr (Mac64Address ());
 }
@@ -185,7 +187,7 @@ void CapillaryMacHeader::SetRetry (bool is)
       m_retry = 0x00;
     }
 }
-
+/*
 uint16_t CapillaryMacHeader::GetPayloadSize (void) const
 {
   return m_payloadSize;
@@ -195,7 +197,7 @@ void CapillaryMacHeader::SetPayloadSize (uint16_t size)
 {
   m_payloadSize = size;
 }
-
+*/
 CapillaryMacHeader::FrameType CapillaryMacHeader::GetFrameType (void) const
 {
   return (CapillaryMacHeader::FrameType) m_frameType;
@@ -220,6 +222,8 @@ void CapillaryMacHeader::Print (std::ostream &os) const
   os << "Source Address = " << m_srcAddr << ", ";
   os << "Destination Address = " << m_dstAddr << ", ";
 
+  os << "Energy Value = " << (uint32_t)m_energyValue << ", ";
+
   os << "Frame Control( ";
   os << "Frame Type=" << (uint32_t) m_frameType << ", ";
 
@@ -230,14 +234,15 @@ void CapillaryMacHeader::Print (std::ostream &os) const
   os << "Reserved3=" << (uint32_t) m_reserved3 << ", ";
   os << "Reserved4=" << (uint32_t) m_reserved4 << "), ";
 
-  os << "Payload Size = " << m_payloadSize << ", ";
+//  os << "Payload Size = " << m_payloadSize << ", ";
   os << "Sequence Num = " << (uint16_t) m_SeqNum << "";
 }
 
 uint32_t CapillaryMacHeader::GetSerializedSize (void) const
 {
 
-  return (8 + 8 + 16 + 64 + 64) / 8;
+  //return (8 + 8 + 8 + 16 + 64 + 64) / 8;
+  return (8 + 8 + 8 + 64 + 64) / 8;
 }
 
 void CapillaryMacHeader::Serialize (Buffer::Iterator start) const
@@ -246,7 +251,8 @@ void CapillaryMacHeader::Serialize (Buffer::Iterator start) const
   Buffer::Iterator i = start;
   WriteTo (i, m_dstAddr);
   WriteTo (i, m_srcAddr);
-  i.WriteU16 (m_payloadSize);
+  i.WriteU8 (GetEnergyValue ());
+  //i.WriteU16 (m_payloadSize);
   i.WriteU8 (GetFrameControl ());
   i.WriteU8 (m_SeqNum);
 }
@@ -258,7 +264,8 @@ uint32_t CapillaryMacHeader::Deserialize (Buffer::Iterator start)
 
   ReadFrom (i, m_dstAddr);
   ReadFrom (i, m_srcAddr);
-  SetPayloadSize (i.ReadU16 ());
+  SetEnergyValue (i.ReadU8 ());
+  //SetPayloadSize (i.ReadU16 ());
   SetFrameControl (i.ReadU8 ());
   SetSeqNum (i.ReadU8 ());
 
@@ -294,6 +301,16 @@ void CapillaryMacHeader::SetFrameControl (uint8_t control)
   m_reserved2 = (control >> 2) & 0x01;
   m_reserved3 = (control >> 1) & 0x01;
   m_reserved4 = (control)      & 0x01;
+}
+
+uint8_t CapillaryMacHeader::GetEnergyValue () const
+{
+  return m_energyValue;
+}
+
+void CapillaryMacHeader::SetEnergyValue (uint8_t energyValue)
+{
+  m_energyValue = energyValue;
 }
 
 } // namespace ns3

@@ -59,7 +59,7 @@ void CapillaryPacketTestCase::DoRun (void)
   Mac64Address srcAddr = Mac64Address::Allocate ();
   macHdr.SetSrcAddr (srcAddr);
   macHdr.SetDstAddr (Mac64Address ("ff:ff:ff:ff:ff:ff:ff:ff"));
-  macHdr.SetPayloadSize (PayloadSize);
+  //macHdr.SetPayloadSize (PayloadSize);
 
   std::cout << "Header Size Serialized: " << macHdr.GetSerializedSize () << std::endl;
 
@@ -73,12 +73,12 @@ void CapillaryPacketTestCase::DoRun (void)
 
   std::cout << " <--Mac Header added " << std::endl;
 
-  NS_TEST_ASSERT_MSG_EQ (p->GetSize (), 140, "Packet wrong size after macHdr addition");
+  NS_TEST_ASSERT_MSG_EQ (p->GetSize (), 139, "Packet wrong size after macHdr addition");
 
   CapillaryMacTrailer macTrailer (p);
   p->AddTrailer (macTrailer);
   std::cout << " <--Mac trailer added " << std::endl;
-  NS_TEST_ASSERT_MSG_EQ (p->GetSize (), 142, "Packet wrong size after macTrailer addition");
+  NS_TEST_ASSERT_MSG_EQ (p->GetSize (), 141, "Packet wrong size after macTrailer addition");
 
   // Test serialization and deserialization
   uint32_t size = p->GetSerializedSize ();
@@ -89,7 +89,7 @@ void CapillaryPacketTestCase::DoRun (void)
   p2->Print (std::cout);
   std::cout << " <--Packet P2 " << std::endl;
 
-  NS_TEST_ASSERT_MSG_EQ (p2->GetSize (), 142, "Packet wrong size after deserialization");
+  NS_TEST_ASSERT_MSG_EQ (p2->GetSize (), 141, "Packet wrong size after deserialization");
 
   CapillaryMacHeader receivedMacHdr;
   p2->RemoveHeader (receivedMacHdr);

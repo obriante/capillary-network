@@ -37,7 +37,7 @@ NS_OBJECT_ENSURE_REGISTERED (CapillaryController);
 CapillaryController::CapillaryController (void)
 {
   NS_LOG_FUNCTION (this);
-  m_activePeriodStart=Time(0);
+  m_activePeriodStart = Time (0);
 }
 
 CapillaryController::~CapillaryController (void)
@@ -45,12 +45,12 @@ CapillaryController::~CapillaryController (void)
   NS_LOG_FUNCTION (this);
 }
 
-void CapillaryController::NotifyActivePeriodStart(void)
+void CapillaryController::NotifyActivePeriodStart (void)
 {
-	NS_LOG_FUNCTION (this);
-	m_activePeriodStart=Simulator::Now();
+  NS_LOG_FUNCTION (this);
+  m_activePeriodStart = Simulator::Now ();
 
-NS_LOG_DEBUG ("Active Period Started at:"<<m_activePeriodStart);
+  NS_LOG_DEBUG ("Active Period Started at:" << m_activePeriodStart);
 }
 
 TypeId

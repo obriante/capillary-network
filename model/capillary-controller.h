@@ -41,14 +41,14 @@ public:
 
   static TypeId GetTypeId (void);
 
-  void NotifyActivePeriodStart(void);
+  void NotifyActivePeriodStart (void);
 
   virtual void SetNode (Ptr<Node> node) = 0;
   virtual void SetMac (Ptr<CapillaryMac> mac) = 0;
   virtual Ptr<Node> GetNode (void) const = 0;
   virtual Ptr<CapillaryMac> GetMac (void) const = 0;
   virtual Time GetOffTime (void) = 0;
-  virtual Time GetNextActivePeriod(void) = 0;
+  virtual void NegoziateOffTime (Time toff) = 0;
 
 protected:
   Time m_activePeriodStart;

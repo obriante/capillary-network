@@ -91,7 +91,7 @@ public:
      * Get the payload size
      * \return the payload size
      */
-  uint16_t GetPayloadSize (void) const;
+//  uint16_t GetPayloadSize (void) const;
 
   /**
    * Set the Sequence number
@@ -117,7 +117,10 @@ public:
    * Set the payload size
    * \param size the payload size
    */
-  void SetPayloadSize (uint16_t size);
+//  void SetPayloadSize (uint16_t size);
+
+  uint8_t GetEnergyValue () const;
+  void SetEnergyValue (uint8_t energyValue);
 
   uint8_t GetMoreFrag (void) const;
   void SetMoreFrag (bool is);
@@ -131,6 +134,7 @@ public:
   void SetReserved4 (bool is);
   uint8_t GetRetry (void) const;
   void SetRetry (bool is);
+
 
 private:
   /**
@@ -151,6 +155,10 @@ private:
   Mac64Address m_srcAddr;                          //!< Src addr
   Mac64Address m_dstAddr;                          //!< Dst addr
 
+  /** Energy Control Value */
+
+  uint8_t m_energyValue;
+
   /** Frame control field*/
 
   uint8_t m_frameType;
@@ -165,7 +173,7 @@ private:
   uint8_t m_SeqNum;                                    //!< Sequence Number
 
   /* Payload Size */
-  uint16_t m_payloadSize;  //!< for future fragmentation
+  //uint16_t m_payloadSize;  //!< for future fragmentation
 };
 // CapillaryMacHeader
 
