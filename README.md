@@ -2,7 +2,11 @@
 
 This ns-3 module define abstract M2M capillary networks
 
-Some reference:
+### Copyright (C) 2015 - Orazio Briante <orazio.briante@unirc.it>
+### Laboratory A.R.T.S. - University Mediterranea of Reggio Calabria - Faculty of Engineering
+Via Graziella Feo di Vito I - 89100 Reggio Calabria (RC), Italy
+
+### Some reference:
 
 * O. Briante, A. M. Mandalari, A. Molinaro, G. Ruggeri, J. Alonso-Zarate and F. Vazquez-Gallego, "Duty-Cycle Optimization for Machine-to-Machine Area Networks Based on Frame Slotted-ALOHA with Energy Harvesting Capabilities," European Wireless 2014; 20th European Wireless Conference, Barcelona, Spain, 2014, pp. 1-6.
 URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6843208&isnumber=6843048
